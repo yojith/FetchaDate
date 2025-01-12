@@ -13,7 +13,8 @@ import io
 from search import initialize_openai, search_pets
 from filter import fetch_pets_from_db, PetFilter
 from match import match_pets, get_user_pet
-
+from email_send import email_send
+import requests
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -83,31 +84,42 @@ def profile():
 
 @app.route("/matches", methods=["GET", "POST"])
 def matches():
-    client = initialize_openai() 
-
-    pets = fetch_pets_from_db()
-
-    email = session.get("user", {}).get("userinfo", {}).get("email")
+    user = session.get("user")
+    email = user["userinfo"]["email"]
     user_pet = get_user_pet(email)
 
+    pets = fetch_pets_from_db()
+    client = initialize_openai()
+
+    # Default sorting by matching
     pets = match_pets(client, user_pet, pets)
+
+    # Handle search
+    query = request.args.get("search", "").strip()
+    if query:
+        pets = search_pets(client, pets, query)
+
+    # Handle filters
+    filter_species = request.args.get("species", "false")
+    filter_location = request.args.get("location", "false")
+
+    if filter_species == "true" or filter_location == "true":
+        pet_filter = PetFilter(pets)
+        if filter_species == "true":
+            pet_filter.set_filter("species", user_pet["species_name"])
+        if filter_location == "true":
+            pet_filter.set_filter("location", user_pet["location"])
+        pets = pet_filter.filter()
+
+    # Pass current filters to the template
+    return render_template(
+        "matches.html",
+        pets=pets,
+        search=query,
+        filter_species=filter_species,
+        filter_location=filter_location,
+    )
     
-    species_filter = request.form.get("species_filter", "").strip()
-    location_filter = request.form.get("location_filter", "").strip()
-    pet_filter = PetFilter(pets)
-    if species_filter:
-        pet_filter.set_filter("species", species_filter)
-    if location_filter:
-        pet_filter.set_filter("location", location_filter)
-    pets = pet_filter.filter()
-
-    search_query = request.form.get("search_query", "").strip()
-    if search_query:
-        pets = search_pets(client, pets, search_query)
-
-    return render_template("display.html", pets=pets)
-
-
 
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
@@ -166,6 +178,32 @@ def signup():
 
     return render_template("signup.html")
 
+@app.route("/email", methods=["POST", "GET"])
+def email():
+    if request.method == "POST": 
+        email = request.form["email"] 
+        pet_name = request.form["pet-name"]
+        print(email)
+        print(pet_name)
+
+        # API URL
+        url = "https://api.mailjet.com/v3.1/send"
+
+        # Mailjet credentials
+        API_KEY = "d15542b03747edc4a204de289c8f24e5"
+        SECRET_KEY = "b89b9157e8d1b4a0f3a9e075c298adee"
+
+        # Send the email
+        data = email_send(email, pet_name)
+        response = requests.post(url, auth=(API_KEY, SECRET_KEY), json=data)
+
+        if response.status_code == 200:
+            return render_template("email.html", session=session["user"])
+
+        else:
+            print(f"Failed to send email. Status code: {response.status_code}")
+            return "Email failed!" # take to some confirmation page
+
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(env.get("PORT", 8080)))
+    app.run(debug=False, host="0.0.0.0", port=int(env.get("PORT", 8080)))

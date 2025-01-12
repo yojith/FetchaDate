@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 @dataclass
 class Pet:
@@ -6,3 +7,5 @@ class Pet:
     species: str
     description: str
     location: str
+    email: str
+    image: Optional[str] = None

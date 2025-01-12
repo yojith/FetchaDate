@@ -18,6 +18,11 @@
         object-fit: cover;
         border-radius: 50%;
       }
+      .logo{
+  height: 20px;
+  width: auto;
+  border-radius: 0%;
+}
       body,
       html {
         height: 100%;
@@ -75,14 +80,13 @@
   </head>
   <body class="w3-text-white">
     <div class="topnav">
-      <a class="active" href="/">FetchaDate</a>
+      <a class="active" href="/"><img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="FetchaDate logo in white"></a>
       <div class="topnav-right">
         {% if not session %}
         <a href="/login">Login</a>
         <!-- <a href="/signup">Sign Up</a> -->
         {% else %}
-        <a href="/profile"></a>
-        <a href="/match">Match</a>
+        <a href="/matches">Match</a>
         <a href="/logout">Logout</a>
         {% endif %}
       </div>

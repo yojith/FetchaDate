@@ -72,7 +72,3 @@ def match_pets(client: OpenAI, user_pet: dict, pets: List[Pet]) -> List[Pet]:
     scored_pets = [(get_similarity_score(pet), pet) for pet in pets]
     scored_pets.sort(reverse=True, key=lambda x: x[0])
     return [pet for _, pet in scored_pets]
-
-    scored_pets = [(get_similarity_score(pet), pet) for pet in pets]
-    scored_pets.sort(reverse=True, key=lambda x: x[0])
-    return [pet for _, pet in scored_pets]

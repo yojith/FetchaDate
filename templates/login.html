@@ -13,6 +13,10 @@
       html {
         height: 100%;
       }
+      .logo{
+  height: 20px;
+  width: auto;
+}
       body {
         background-image: url("https://static.vecteezy.com/system/resources/previews/027/957/026/non_2x/vibrant-red-and-purple-color-gradient-background-with-smooth-texture-eps10-format-vector.jpg");
         height: 100%;
@@ -118,7 +122,7 @@ a {
     <div class="topnav">
         <a class="active" href="/login">Login</a>
         <div class="topnav-right">
-          <a href="/">FetchaDate</a>
+          <a href="/"><img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="FetchaDate logo in white"></a>
         </div>
       </div> 
     <div class="w3-content"></div>

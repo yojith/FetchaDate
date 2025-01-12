@@ -12,6 +12,10 @@
       img {
   width: 30%;
 }
+.logo{
+  height: 20px;
+  width: auto;
+}
       body,
       html {
         height: 100%;
@@ -61,9 +65,9 @@
   </head>
   <body class="w3-text-white">
     <div class="topnav">
-      <a class="active" href="/">FetchaDate</a>
+      <a class="active" href="/"><img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="FetchaDate logo in white"></a>
       <div class="topnav-right">
-        <a href="/match">Match</a>
+        <a href="/matches">Match</a>
         {% if not session %}
         <a href="/login">Login / Sign up</a>
         <!-- <a href="/signup">Sign Up</a> -->
@@ -78,9 +82,7 @@
     <div id="homebox" class="w3-container">
       <form class="w3-container" id="homebox" action="#" method="POST">
         <p1 class="w3-margin-top w3-col s3"> </p1>
-        <h1 class="w3-margin-top w3-text-white w3-jumbo w3-col s4">
-          FetchaDate
-        </h1>
+        <img class="w3-col s4"src="{{ url_for('static', filename='logo.png') }}" alt="FetchaDate logo in white">
         <p1 class="w3-margin-top w3-col s12"> </p1>
         <p1 class="w3-margin-top w3-col s3"> </p1>
         <h1 class="w3-margin-top w3-col s4">

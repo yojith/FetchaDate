@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FetchaDate - Pet Matches</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url("https://static.vecteezy.com/system/resources/previews/027/957/026/non_2x/vibrant-red-and-purple-color-gradient-background-with-smooth-texture-eps10-format-vector.jpg");
+            background-position: center;
+            background-size: cover;
+            overflow: auto;
+            color: white;
+        }
+
+        .topnav {
+            background-color: #373737;
+            overflow: hidden;
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: rgb(129, 4, 71);
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: rgb(170, 4, 93);
+            color: white;
+        }
+
+        .topnav-right {
+            float: right;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #373737;
+            border-radius: 8px;
+        }
+
+        .search-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            background: #f1f1f1;
+        }
+
+        .search-bar:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        .filter-button {
+            padding: 15px 25px;
+            background-color: rgb(170, 4, 93);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .filter-button:hover {
+            opacity: 0.9;
+        }
+
+        .filter-box {
+            display: none; 
+            background-color: #444;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            margin: 10px 0 20px 0;
+        }
+
+        .filter-box.active {
+            display: block; 
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .filter-option input {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .filter-option label {
+            color: white;
+            font-size: 16px;
+        }
+
+        .pet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .pet-card {
+            display: flex;
+            background-color: #444;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .pet-image {
+            width: 200px;
+            height: 200px;
+            background-color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .pet-info {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .pet-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .pet-species, .pet-location {
+            color: #ddd;
+            margin-bottom: 5px;
+        }
+
+        .pet-description {
+            margin-top: 10px;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        .filter-options {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        }
+
+        .filter-div {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            background-color: white;
+            border: 2px solid rgb(170, 4, 93);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-div.active {
+            background-color: rgb(170, 4, 93);
+            color: white;
+        }
+
+        .filter-div:hover {
+            background-color: rgba(170, 4, 93, 0.8);
+            color: white;
+        }
+        .contact-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .contact-link {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: rgb(170, 4, 93);
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .contact-link:hover {
+            background-color: rgba(170, 4, 93, 0.8);
+        }
+
+        .pet-card {
+            position: relative; /* Ensure the button stays positioned relative to the card */
+            display: flex;
+            background-color: #444;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <div class="topnav-right">
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Pet Matches</h1>
+
+        <!-- Search and Filter Section -->
+        <form action="/matches" method="get" class="search-section">
+            <input type="text" name="search" class="search-bar" placeholder="Search pets...">
+            <button type="button" class="filter-button" onclick="toggleFilterBox()">Toggle Filters</button>
+        </form>
+
+        <!-- Filter Box Section -->
+        <div class="filter-box" id="filterBox">
+            <form action="/matches" method="get" id="filterForm">
+                <!-- Include existing query parameters -->
+                <input type="hidden" name="search" value="{{ request.args.get('search', '') }}">
+                <input type="hidden" name="species" value="{{ request.args.get('species', 'false') }}">
+                <input type="hidden" name="location" value="{{ request.args.get('location', 'false') }}">
+        
+                <div class="filter-options">
+                    <!-- Species Filter -->
+                    <div 
+                        class="filter-div {% if request.args.get('species') == 'true' %} active {% endif %}" 
+                        id="filterSpecies" 
+                        onclick="toggleFilter('species')">
+                        Same Species
+                    </div>
+                    <!-- Location Filter -->
+                    <div 
+                        class="filter-div {% if request.args.get('location') == 'true' %} active {% endif %}" 
+                        id="filterLocation" 
+                        onclick="toggleFilter('location')">
+                        Same Location
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Pet Matches Section -->
+        <div class="pet-list">
+            {% for pet in pets %}
+            <div class="pet-card">
+                <div class="pet-image">
+                    {% if pet.image %}
+                    <img src="{{ pet.image }}" alt="Pet Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                    {% else %}
+                    Photo Coming Soon
+                    {% endif %}
+                </div>
+                <div class="pet-info">
+                    <form action="/email" method="POST">
+                        <input id="email" name="email" type="text" value="{{pet.email}}" readonly hidden>
+                        <input id="pet-name" name="pet-name" type="text" value="{{pet.name}}" readonly hidden>
+                        <button type="submit" class="contact-button contact-link">Contact</button>
+                    </form>
+                    <div class="pet-name">{{ pet.name }}</div>
+                    <div class="pet-species">{{ pet.species }}</div>
+                    <div class="pet-location">{{ pet.location }}</div>
+                    <div class="pet-description">{{ pet.description }}</div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+
+    <script>
+        function toggleFilterBox() {
+            const filterBox = document.getElementById('filterBox');
+            filterBox.classList.toggle('active');
+        }
+    </script>
+
+    <script>
+        function toggleFilter(filterType) {
+            const filterForm = document.getElementById('filterForm');
+            const filterInput = filterForm.querySelector(`input[name="${filterType}"]`);
+
+            // Toggle the filter value
+            filterInput.value = filterInput.value === 'true' ? 'false' : 'true';
+
+            // Submit the form
+            filterForm.submit();
+        }
+    </script>
+</body>
+</html>
+

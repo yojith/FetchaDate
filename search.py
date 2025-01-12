@@ -1,13 +1,12 @@
 from openai import OpenAI
 from typing import List
 from models import Pet
-
+from os import environ as env
 
 def initialize_openai() -> OpenAI:
     """Initialize the OpenAI client."""
-    with open("OpenAI_key.txt", "r") as file:
-        openai_api_key = file.read().strip()
-        return OpenAI(api_key=openai_api_key)
+    openai_api_key=env.get("OPENAI_KEY")
+    return OpenAI(api_key=openai_api_key)
 
 
 def search_pets(client: OpenAI, pets: List[Pet], search_query: str) -> List[Pet]:
