@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FetchaDate</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="./static/styles2.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+      img {
+  width: 30%;
+}
+      body,
+      html {
+        height: 100%;
+      }
+      body {
+        background-image: url("https://static.vecteezy.com/system/resources/previews/027/957/026/non_2x/vibrant-red-and-purple-color-gradient-background-with-smooth-texture-eps10-format-vector.jpg");
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+        padding-bottom: 10%;
+        overflow: auto;
+      }
+      /* Add a black background color to the top navigation */
+      .topnav {
+        background-color: #373737;
+        overflow: hidden;
+      }
+
+      /* Style the links inside the navigation bar */
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      /* Change the color of links on hover */
+      .topnav a:hover {
+        background-color: rgb(129, 4, 71);
+        color: black;
+      }
+
+      /* Add a color to the active/current link */
+      .topnav a.active {
+        background-color: rgb(170, 4, 93);
+        color: white;
+      }
+
+      /* Right-aligned section inside the top navigation */
+      .topnav-right {
+        float: right;
+      }
+    </style>
+  </head>
+  <body class="w3-text-white">
+    <div class="topnav">
+      <a class="active" href="/">FetchaDate</a>
+      <div class="topnav-right">
+        <a href="/match">Match</a>
+        {% if not session %}
+        <a href="/login">Login / Sign up</a>
+        <!-- <a href="/signup">Sign Up</a> -->
+        {% else %}
+        <a href="/profile">{{session.userinfo.name}}</a>
+        <a href="/logout">Logout</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="w3-content"></div>
+    <br /><br /><br /><br /><br />
+    <div id="homebox" class="w3-container">
+      <form class="w3-container" id="homebox" action="#" method="POST">
+        <p1 class="w3-margin-top w3-col s3"> </p1>
+        <h1 class="w3-margin-top w3-text-white w3-jumbo w3-col s4">
+          FetchaDate
+        </h1>
+        <p1 class="w3-margin-top w3-col s12"> </p1>
+        <p1 class="w3-margin-top w3-col s3"> </p1>
+        <h1 class="w3-margin-top w3-col s4">
+          Find the pawfect match for you and your pets.
+        </h1>
+        <img src="{{ url_for('static', filename='FetchaDateWhite.png') }}" alt="FetchaDate logo in white">
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FetchaDate - Pet Matches</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url("https://static.vecteezy.com/system/resources/previews/027/957/026/non_2x/vibrant-red-and-purple-color-gradient-background-with-smooth-texture-eps10-format-vector.jpg");
+            background-position: center;
+            background-size: cover;
+            padding-bottom: 10%;
+            overflow: auto;
+            color: white;
+        }
+
+        .topnav {
+            background-color: #373737;
+            overflow: hidden;
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: rgb(129, 4, 71);
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: rgb(170, 4, 93);
+            color: white;
+        }
+
+        .topnav-right {
+            float: right;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #373737;
+            border-radius: 8px;
+        }
+
+        .search-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            background: #f1f1f1;
+        }
+
+        .search-bar:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        .filter-button {
+            padding: 15px 25px;
+            background-color: rgb(170, 4, 93);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .filter-button:hover {
+            opacity: 1;
+        }
+
+        .filter-section {
+            background-color: #444;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .filter-section.active {
+            display: block;
+        }
+
+        .filter-option {
+            margin: 10px 0;
+            color: white;
+        }
+
+        .pet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pet-card {
+            display: flex;
+            background-color: #444;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .pet-image {
+            width: 200px;
+            height: 200px;
+            background-color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+        }
+
+        .pet-info {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .pet-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .pet-species, .pet-location {
+            color: #ddd;
+            margin-bottom: 5px;
+        }
+
+        .pet-description {
+            margin-top: 10px;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        hr {
+            border: 1px solid #f1f1f1;
+            margin: 25px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="/matches">Matches</a>
+        <div class="topnav-right">
+            <a href="/">FetchaDate</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Pet Matches</h1>
+
+        <div class="search-section">
+            <input type="text" class="search-bar" placeholder="Search pets...">
+            <button class="filter-button" onclick="toggleFilters()">Filters</button>
+        </div>
+
+        <div class="filter-section" id="filterSection">
+            <div class="filter-option">
+                <input type="checkbox" id="sameSpecies">
+                <label for="sameSpecies">Same Species</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="sameLocation">
+                <label for="sameLocation">Same Location</label>
+            </div>
+        </div>
+
+        <div class="pet-list">
+            <!-- Example pet card structure -->
+            <div class="pet-card">
+                <div class="pet-image">Photo Coming Soon</div>
+                <div class="pet-info">
+                    <div class="pet-name">Max</div>
+                    <div class="pet-species">Dog - Golden Retriever</div>
+                    <div class="pet-location">Seattle, WA</div>
+                    <div class="pet-description">
+                        Max is a friendly and energetic Golden Retriever who loves playing fetch and meeting new friends at the park.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFilters() {
+            const filterSection = document.getElementById('filterSection');
+            filterSection.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

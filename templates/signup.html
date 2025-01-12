@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pettr</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="./static/styles2.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+      body,
+      html {
+        height: 100%;
+      }
+      body {
+        background-image: url("https://static.vecteezy.com/system/resources/previews/027/957/026/non_2x/vibrant-red-and-purple-color-gradient-background-with-smooth-texture-eps10-format-vector.jpg");
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+        padding-bottom: 10%;
+        overflow: auto;
+      }
+ /* Add a black background color to the top navigation */
+.topnav {
+    background-color: #373737;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: rgb(129, 4, 71);
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: rgb(170, 4, 93);
+  color: white;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+}
+
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  margin-right: 20px;
+  margin-left: 40% ;
+  background: #373737
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+  background-color: rgb(170, 4, 93);
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+    </style>
+  </head>
+  <body class="w3-text-white">
+    <div class="topnav">
+        <a class="active" href="/signup">Sign up</a>
+        <div class="topnav-right">
+          <a href="/">FetchaDate</a>
+        </div>
+      </div> 
+    <div class="w3-content"></div>
+    <br><br><br>
+    <form action="/signup" method="POST" enctype="multipart/form-data">
+      <div class="container">
+        <h1>Sign up</h1>
+        <p>Enter your details below.</p>
+        <hr>
+        <label for="pet-name"><b>Pet Name</b></label>
+        <input type="text" placeholder="Enter Pet Name" name="pet-name" id="pet-name" required>
+
+        <label for="pet-species"><b>Pet Species</b></label>
+        <input type="text" placeholder="Enter Pet Species (e.g. cat, dog, budgie, goldfish, etc.)" name="pet-species" id="pet-species" required>
+
+        <label for="pet-description"><b>Pet Description</b></label>
+        <input type="text" placeholder="Enter a short bio about your pet" name="pet-description" id="pet-description" required>
+
+        <label for="owner-name"><b>Owner's Name</b></label>
+        <input type="text" placeholder="Enter Owner's Name" name="owner-name" id="owner-name" required>
+
+        <label for="location"><b>Location</b></label>
+        <input type="text" placeholder="Enter Location" name="location" id="location" required>
+
+        <label for="profile-picture"><b>Profile Picture</b></label>
+        <input type="file" name="profile-picture" id="profile-picture" required>
+
+
+        <!-- <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" id="email" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+
+        <label for="psw-confirm"><b>Confirm Password</b></label>
+        <input type="password" placeholder="Confirm Password" name="psw-confirm" id="psw-confirm" required>
+        <hr> -->
+    
+        <button type="submit" class="registerbtn">Register</button>
+      </div>
+    
+      <div class="container login">
+        <p>Already have an account? <a href="/login">Login</a>.</p>
+      </div>
+    </form> 
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pettr</title>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="./static/styles2.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        {% block style %}
+        {% endblock %}
+    </head>
+    <body class="w3-text-black">
+        <div id="navbar" class="w3-bar w3-theme-d4 w3-top w3-bottombar w3-border-black">
+            <a class="w3-bar-item w3-button w3-ripple" href="/" style="padding:10px; padding-top: 0px; padding-bottom: 0px;"><img src="/static/assets/logo.png" height="55px"></a>
+            <a class="w3-bar-item w3-button w3-ripple w3-padding-16" href="/get_match">Match</a>
+            <a class="w3-bar-item w3-button w3-ripple w3-padding-16" href="/foodadd">Add Food</a>
+            <a class="w3-bar-item w3-button w3-ripple w3-padding-16" href="/login">Log in</a>
+            <a class="w3-bar-item w3-button w3-ripple w3-padding-16" href="/signup">Sign Up</a>
+            {% if "Username" in session %}
+            <a class="w3-bar-item w3-button w3-ripple w3-padding-16" href="/logoff">Log Out</a>
+            <a class="w3-bar-item w3-button w3-ripple w3-padding-16" href="/profile">{{ session["Username"] }}</a>
+            {% endif %}
+        </div>
+        <div class="w3-content">
+        {% block content %}
+        {% endblock %}
+        </div>
+    </body>
+</html>
